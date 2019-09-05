@@ -76,7 +76,7 @@
         // 表单提交
         form.on('submit(login-submit)', function (obj) {
             layer.load(2);
-            $.post(config.base_server + 'user/login', obj.field, function (res) {
+            $.post( '/user/login', obj.field, function (res) {
                 layer.closeAll('loading');
                 if (200 == res.code) {
                     config.putToken(res.access_token);

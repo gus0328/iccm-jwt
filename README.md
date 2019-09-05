@@ -37,7 +37,7 @@
 ```text
 |-main
    |-java
-   |    |-com.wf.ew
+   |    |-com.iccm.zmmd
    |         |-common                            // 核心模块
    |         |    |-config                       // 存放SpringBoot配置类
    |         |    |    |-MyBatisPlusConfig.java  // MyBatisPlus配置
