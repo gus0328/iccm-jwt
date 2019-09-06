@@ -23,6 +23,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <kaptcha.version>2.3.2</kaptcha.version>
+        <pagehelper.boot.version>1.2.5</pagehelper.boot.version>
     </properties>
 
     <dependencies>
@@ -135,6 +136,19 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
+        <!-- pagehelper 分页插件 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>${pagehelper.boot.version}</version>
+        </dependency>
+
+        <!-- excel工具 -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.17</version>
+        </dependency>
 
     </dependencies>
 
