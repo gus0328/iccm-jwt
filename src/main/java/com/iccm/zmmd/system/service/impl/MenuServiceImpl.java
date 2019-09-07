@@ -1,12 +1,113 @@
 package com.iccm.zmmd.system.service.impl;
 
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.alibaba.fastjson.JSONArray;
+import com.iccm.zmmd.common.Convert;
+import com.iccm.zmmd.common.DateUtils;
+import com.iccm.zmmd.common.utils.JSONUtil;
 import com.iccm.zmmd.system.dao.MenuMapper;
 import com.iccm.zmmd.system.model.Menu;
-import com.iccm.zmmd.system.service.MenuService;
+import com.iccm.zmmd.system.model.SelectModel;
+import com.iccm.zmmd.system.service.IMenuService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {
+import java.util.List;
 
+/**
+ * 菜单Service业务层处理
+ * 
+ * @author gxj
+ * @date 2019-09-07
+ */
+@Service
+public class MenuServiceImpl implements IMenuService
+{
+    @Autowired
+    private MenuMapper menuMapper;
+
+    /**
+     * 查询菜单
+     * 
+     * @param menuId 菜单ID
+     * @return 菜单
+     */
+    @Override
+    public Menu selectMenuById(Long menuId)
+    {
+        return menuMapper.selectMenuById(menuId);
+    }
+
+    /**
+     * 查询菜单列表
+     * 
+     * @param menu 菜单
+     * @return 菜单
+     */
+    @Override
+    public JSONArray selectMenuList(Menu menu)
+    {
+        List list = menuMapper.selectMenuList(menu);
+        JSONArray jsonArray = JSONArray.parseArray(JSONArray.toJSONStringWithDateFormat(list,"yyyy-MM-dd HH:mm:ss"));
+        return JSONUtil.listToTree(jsonArray,"menuId","parentId","children");
+    }
+
+    /**
+     * 新增菜单
+     * 
+     * @param menu 菜单
+     * @return 结果
+     */
+    @Override
+    public int insertMenu(Menu menu)
+    {
+        menu.setCreateTime(DateUtils.getNowDate());
+        return menuMapper.insertMenu(menu);
+    }
+
+    /**
+     * 修改菜单
+     * 
+     * @param menu 菜单
+     * @return 结果
+     */
+    @Override
+    public int updateMenu(Menu menu)
+    {
+        menu.setUpdateTime(DateUtils.getNowDate());
+        return menuMapper.updateMenu(menu);
+    }
+
+    /**
+     * 删除菜单对象
+     * 
+     * @param ids 需要删除的数据ID
+     * @return 结果
+     */
+    @Override
+    public int deleteMenuByIds(String ids)
+    {
+        return menuMapper.deleteMenuByIds(Convert.toStrArray(ids));
+    }
+
+    /**
+     * 删除菜单信息
+     * 
+     * @param menuId 菜单ID
+     * @return 结果
+     */
+    public int deleteMenuById(Long menuId)
+    {
+        return menuMapper.deleteMenuById(menuId);
+    }
+
+    /**
+     * 查询菜单下拉
+     * @return
+     */
+    @Override
+    public JSONArray queryMenuSelect() {
+        List<SelectModel> list = menuMapper.queryMenuSelect();
+        JSONArray jsonArray = JSONArray.parseArray(JSONArray.toJSONString(list));
+        return JSONUtil.listToTree(jsonArray,"value","depart","children");
+    }
 }

@@ -1,17 +1,15 @@
-package com.iccm.zmmd.system.dao;
+package com.iccm.zmmd.system.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.iccm.zmmd.system.model.Menu;
-import com.iccm.zmmd.system.model.SelectModel;
-
-import java.util.List;
 
 /**
- * 菜单Mapper接口
+ * 菜单Service接口
  * 
  * @author gxj
  * @date 2019-09-07
  */
-public interface MenuMapper 
+public interface IMenuService 
 {
     /**
      * 查询菜单
@@ -27,7 +25,7 @@ public interface MenuMapper
      * @param menu 菜单
      * @return 菜单集合
      */
-    public List<Menu> selectMenuList(Menu menu);
+    public JSONArray selectMenuList(Menu menu);
 
     /**
      * 新增菜单
@@ -46,7 +44,15 @@ public interface MenuMapper
     public int updateMenu(Menu menu);
 
     /**
-     * 删除菜单
+     * 批量删除菜单
+     * 
+     * @param ids 需要删除的数据ID
+     * @return 结果
+     */
+    public int deleteMenuByIds(String ids);
+
+    /**
+     * 删除菜单信息
      * 
      * @param menuId 菜单ID
      * @return 结果
@@ -54,16 +60,8 @@ public interface MenuMapper
     public int deleteMenuById(Long menuId);
 
     /**
-     * 批量删除菜单
-     * 
-     * @param menuIds 需要删除的数据ID
-     * @return 结果
-     */
-    public int deleteMenuByIds(String[] menuIds);
-
-    /**
-     * 查询部门下拉
+     * 下拉列表
      * @return
      */
-    public List<SelectModel> queryMenuSelect();
+    public JSONArray queryMenuSelect();
 }

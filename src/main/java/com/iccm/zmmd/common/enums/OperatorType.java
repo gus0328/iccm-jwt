@@ -3,7 +3,7 @@ package com.iccm.zmmd.common.enums;
 /**
  * 操作人类别
  * 
- * @author ruoyi
+ * @author gxj
  */
 public enum OperatorType
 {

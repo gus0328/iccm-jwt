@@ -1,98 +1,92 @@
 package com.iccm.zmmd.system.controller;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.alibaba.fastjson.JSONArray;
+import com.iccm.zmmd.common.BaseController;
 import com.iccm.zmmd.common.JsonResult;
-import com.iccm.zmmd.system.service.MenuService;
-import com.iccm.zmmd.common.PageResult;
+import com.iccm.zmmd.common.annotation.Log;
+import com.iccm.zmmd.common.enums.BusinessType;
 import com.iccm.zmmd.system.model.Menu;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import com.iccm.zmmd.system.model.PostModel;
+import com.iccm.zmmd.system.service.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.wf.jwtp.annotation.RequiresPermissions;
 
-import java.util.Iterator;
-import java.util.List;
+/**
+ * 菜单Controller
+ * 
+ * @author gxj
+ * @date 2019-09-07
+ */
+@Controller
+@RequestMapping("/system/menu")
+public class MenuController extends BaseController
+{
 
-@Api(value = "菜单管理", tags = "menu")
-@RestController
-@RequestMapping("${api.version}/menu")
-public class MenuController {
     @Autowired
-    private MenuService menuService;
+    private IMenuService menuService;
 
-    @RequiresPermissions("get:/v1/menu")
-    @ApiOperation(value = "查询所有菜单")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "keyword", value = "搜索关键字", required = false, dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "access_token", value = "令牌", required = true, dataType = "String", paramType = "query")
-    })
-    @GetMapping()
-    public PageResult<Menu> list(String keyword) {
-        List<Menu> list = menuService.selectList(new EntityWrapper<Menu>().orderBy("sort_number", true));
-        for (Menu one : list) {
-            for (Menu t : list) {
-                if (one.getParentId() == t.getMenuId()) {
-                    one.setParentName(t.getMenuName());
-                }
-            }
-        }
-        // 筛选结果
-        if (keyword != null && !keyword.trim().isEmpty()) {
-            keyword = keyword.trim();
-            Iterator<Menu> iterator = list.iterator();
-            while (iterator.hasNext()) {
-                Menu next = iterator.next();
-                boolean b = next.getMenuName().contains(keyword) || (next.getParentName() != null && next.getParentName().contains(keyword));
-                if (!b) {
-                    iterator.remove();
-                }
-            }
-        }
-        return new PageResult<>(list);
+    /**
+     * 查询菜单列表
+     */
+    @PostMapping("/list")
+    @ResponseBody
+    public JSONArray list(@RequestBody Menu menu)
+    {
+        return menuService.selectMenuList(menu);
     }
 
-    @RequiresPermissions("post:/v1/menu")
-    @ApiOperation(value = "添加菜单")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "menu", value = "菜单信息", required = true, dataType = "Menu", paramType = "form"),
-            @ApiImplicitParam(name = "access_token", value = "令牌", required = true, dataType = "String", paramType = "form")
-    })
-    @PostMapping()
-    public JsonResult add(Menu menu) {
-        if (menuService.insert(menu)) {
-            return JsonResult.ok("添加成功");
-        }
-        return JsonResult.error("添加失败");
+//    /**
+//     * 导出菜单列表
+//     */
+//    @PostMapping("/export")
+//    @ResponseBody
+//    public JsonResult export(@RequestBody Menu menu)
+//    {
+//        List<Menu> list = menuService.selectMenuList(menu);
+//        ExcelUtil<Menu> util = new ExcelUtil<Menu>(Menu.class);
+//        return util.exportExcel(list, "menu");
+//    }
+
+    /**
+     * 新增保存菜单
+     */
+    @Log(title = "菜单", businessType = BusinessType.INSERT)
+    @PostMapping("/add")
+    @ResponseBody
+    public JsonResult addSave(@RequestBody Menu menu)
+    {
+        menuService.insertMenu(menu);
+        return JsonResult.ok();
     }
 
-    @RequiresPermissions("put:/v1/menu")
-    @ApiOperation(value = "修改菜单")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "menu", value = "菜单信息", required = true, dataType = "Menu", paramType = "form"),
-            @ApiImplicitParam(name = "access_token", value = "令牌", required = true, dataType = "String", paramType = "form")
-    })
-    @PutMapping()
-    public JsonResult update(Menu menu) {
-        if (menuService.updateById(menu)) {
-            return JsonResult.ok("修改成功！");
-        }
-        return JsonResult.error("修改失败！");
+    /**
+     * 修改保存菜单
+     */
+    @Log(title = "菜单", businessType = BusinessType.UPDATE)
+    @PostMapping("/edit")
+    @ResponseBody
+    public JsonResult editSave(@RequestBody Menu menu)
+    {
+        menuService.updateMenu(menu);
+        return JsonResult.ok();
     }
 
-    @RequiresPermissions("delete:/v1/menu/{id}")
-    @ApiOperation(value = "删除菜单")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "menuId", value = "菜单id", required = true, dataType = "Integer", paramType = "path"),
-            @ApiImplicitParam(name = "access_token", value = "令牌", required = true, dataType = "String", paramType = "query")
-    })
-    @DeleteMapping("/{id}")
-    public JsonResult delete(@PathVariable("id") Integer menuId) {
-        if (menuService.deleteById(menuId)) {
-            return JsonResult.ok("删除成功");
-        }
-        return JsonResult.error("删除失败");
+    /**
+     * 删除菜单
+     */
+    @Log(title = "菜单", businessType = BusinessType.DELETE)
+    @PostMapping( "/remove")
+    @ResponseBody
+    public JsonResult remove(@RequestBody PostModel postModel)
+    {
+        menuService.deleteMenuById(Long.parseLong(postModel.getId()));
+        return JsonResult.ok();
+    }
+
+    @GetMapping("/treeSelect")
+    @ResponseBody
+    public JSONArray treeSelect(){
+        return menuService.queryMenuSelect();
     }
 }

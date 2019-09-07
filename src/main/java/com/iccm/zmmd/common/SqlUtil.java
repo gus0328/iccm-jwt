@@ -6,7 +6,7 @@ import com.iccm.zmmd.common.utils.StringUtils;
 /**
  * sql操作工具类
  * 
- * @author ruoyi
+ * @author gxj
  */
 public class SqlUtil
 {

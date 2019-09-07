@@ -3,7 +3,7 @@ package com.iccm.zmmd.common.enums;
 /**
  * 用户状态
  * 
- * @author ruoyi
+ * @author gxj
  */
 public enum UserStatus
 {

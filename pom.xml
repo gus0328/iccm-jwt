@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.wf</groupId>
-    <artifactId>easyweb-jwt</artifactId>
+    <groupId>iccm</groupId>
+    <artifactId>iccm-zmmd</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>easyweb-jwt</name>
-    <description>easyweb-jwt project for Spring Boot</description>
+    <name>iccm-zmmd</name>
+    <description>中煤蒙大现场作业监控</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

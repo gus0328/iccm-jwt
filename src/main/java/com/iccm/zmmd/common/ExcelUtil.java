@@ -25,7 +25,7 @@ import java.util.*;
 /**
  * Excel相关处理
  * 
- * @author ruoyi
+ * @author gxj
  */
 public class ExcelUtil<T>
 {

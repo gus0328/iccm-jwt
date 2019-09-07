@@ -6,7 +6,7 @@ import com.iccm.zmmd.common.utils.StringUtils;
 /**
  * 分页数据
  * 
- * @author ruoyi
+ * @author gxj
  */
 public class PageDomain
 {

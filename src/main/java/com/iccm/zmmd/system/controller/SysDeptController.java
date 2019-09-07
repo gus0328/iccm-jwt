@@ -3,14 +3,12 @@ package com.iccm.zmmd.system.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.iccm.zmmd.common.BaseController;
 import com.iccm.zmmd.common.JsonResult;
-import com.iccm.zmmd.common.utils.StringUtils;
-import com.iccm.zmmd.system.model.Ztree;
 import com.iccm.zmmd.common.UserConstants;
 import com.iccm.zmmd.system.model.SysDept;
+import com.iccm.zmmd.system.model.Ztree;
 import com.iccm.zmmd.system.service.ISysDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +17,7 @@ import java.util.List;
 /**
  * 部门信息
  * 
- * @author ruoyi
+ * @author gxj
  */
 @Controller
 @RequestMapping("/system/dept")

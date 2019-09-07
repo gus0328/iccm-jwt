@@ -3,7 +3,7 @@ package com.iccm.zmmd.common.enums;
 /**
  * 业务操作类型
  * 
- * @author ruoyi
+ * @author gxj
  */
 public enum BusinessType
 {

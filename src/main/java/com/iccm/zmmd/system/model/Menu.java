@@ -1,115 +1,125 @@
 package com.iccm.zmmd.system.model;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
+import com.iccm.zmmd.common.annotation.Excel;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.io.Serializable;
-import java.util.Date;
-
-@TableName("sys_menu")
-public class Menu implements Serializable {
+/**
+ * 菜单对象 menu
+ *
+ * @author ruoyi
+ * @date 2019-09-07
+ */
+public class Menu extends BaseEntity
+{
     private static final long serialVersionUID = 1L;
 
-    @TableId
-    private Integer menuId;  // 菜单id
+    /** $column.columnComment */
+    private Long menuId;
 
-    private Integer parentId;  // 父级id
+    /** 菜单名称 */
+    @Excel(name = "菜单名称")
+    private String menuTitle;
 
-    private String menuName;  // 菜单名称
+    /** 菜单name */
+    @Excel(name = "菜单name")
+    private String menuName;
 
-    private String menuUrl;  // 菜单url
+    /** 菜单路径 */
+    @Excel(name = "菜单路径")
+    private String menuUrl;
 
-    private String menuIcon;  // 菜单图标
+    /** 类型 */
+    @Excel(name = "类型")
+    private String menuType;
 
-    private String authority;  // 对应权限
+    /** 排序编号 */
+    @Excel(name = "排序编号")
+    private Integer orderNum;
 
-    private Integer sortNumber;  // 排序号
+    /** 父菜单id */
+    @Excel(name = "父菜单id")
+    private Long parentId;
 
-    private Date createTime;  // 创建时间
-
-    private Date updateTime;  // 修改时间
-
-    @TableField(exist = false)
-    private String parentName;  // 父级菜单
-
-    public Integer getMenuId() {
-        return menuId;
-    }
-
-    public void setMenuId(Integer menuId) {
+    public void setMenuId(Long menuId)
+    {
         this.menuId = menuId;
     }
 
-    public Integer getParentId() {
-        return parentId;
+    public Long getMenuId()
+    {
+        return menuId;
+    }
+    public void setMenuTitle(String menuTitle)
+    {
+        this.menuTitle = menuTitle;
     }
 
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
+    public String getMenuTitle()
+    {
+        return menuTitle;
     }
-
-    public String getMenuName() {
-        return menuName;
-    }
-
-    public void setMenuName(String menuName) {
+    public void setMenuName(String menuName)
+    {
         this.menuName = menuName;
     }
 
-    public String getMenuUrl() {
-        return menuUrl;
+    public String getMenuName()
+    {
+        return menuName;
     }
-
-    public void setMenuUrl(String menuUrl) {
+    public void setMenuUrl(String menuUrl)
+    {
         this.menuUrl = menuUrl;
     }
 
-    public String getMenuIcon() {
-        return menuIcon;
+    public String getMenuUrl()
+    {
+        return menuUrl;
+    }
+    public void setMenuType(String menuType)
+    {
+        this.menuType = menuType;
     }
 
-    public void setMenuIcon(String menuIcon) {
-        this.menuIcon = menuIcon;
+    public String getMenuType()
+    {
+        return menuType;
+    }
+    public void setOrderNum(Integer orderNum)
+    {
+        this.orderNum = orderNum;
     }
 
-    public String getAuthority() {
-        return authority;
+    public Integer getOrderNum()
+    {
+        return orderNum;
+    }
+    public void setParentId(Long parentId)
+    {
+        this.parentId = parentId;
     }
 
-    public void setAuthority(String authority) {
-        this.authority = authority;
+    public Long getParentId()
+    {
+        return parentId;
     }
 
-    public Integer getSortNumber() {
-        return sortNumber;
-    }
-
-    public void setSortNumber(Integer sortNumber) {
-        this.sortNumber = sortNumber;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public String getParentName() {
-        return parentName;
-    }
-
-    public void setParentName(String parentName) {
-        this.parentName = parentName;
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+                .append("menuId", getMenuId())
+                .append("menuTitle", getMenuTitle())
+                .append("menuName", getMenuName())
+                .append("menuUrl", getMenuUrl())
+                .append("menuType", getMenuType())
+                .append("orderNum", getOrderNum())
+                .append("parentId", getParentId())
+                .append("createBy", getCreateBy())
+                .append("createTime", getCreateTime())
+                .append("updateBy", getUpdateBy())
+                .append("updateTime", getUpdateTime())
+                .append("remark", getRemark())
+                .toString();
     }
 }

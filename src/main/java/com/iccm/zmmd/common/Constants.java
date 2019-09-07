@@ -3,7 +3,7 @@ package com.iccm.zmmd.common;
 /**
  * 通用常量信息
  * 
- * @author ruoyi
+ * @author gxj
  */
 public class Constants
 {

@@ -5,7 +5,7 @@ import com.iccm.zmmd.common.Convert;
 /**
  * 字符串格式化
  * 
- * @author ruoyi
+ * @author gxj
  */
 public class StrFormatter
 {
